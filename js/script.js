@@ -4,13 +4,14 @@ const conteudo = document.querySelector(".conteudo")
 
 const btn_começar = document.querySelector(".btn_começar")
 const btn_proxima = document.querySelector(".btn_proxima")
+const btn_verificar = document.querySelector(".btn_verificar")
 
 //objeto que contem todas as perguntas do jogo
 const questoes = {
     id1: {
         Q1: "1) Quanto é 2 + 2?",
         respostas: {
-            a: "2",
+            correta: "2",
             b: "1",
             c: "4",
             d: "3"
@@ -84,6 +85,14 @@ btn_começar.addEventListener("click",()=>{
     criarConteudo()
 })
 
+//remove o estilo de seleção de uma alternativa caso clique em outra
+function tirarSelecao(){
+    const alternativas = [...document.querySelectorAll(".alternativasSelecionada")]
+    alternativas.map((el)=>{
+        el.classList.remove("alternativasSelecionada")
+    })
+}
+
 //função que cria perguntas e respostas
 function criarConteudo(){
 
@@ -101,27 +110,30 @@ function criarConteudo(){
     
     //adiciona o retorno da função chamarResposta() no array
     array_resposta.push(resposta.next().value)
-
+    
     //percorre o array criando as alternativas
     array_resposta.map((el)=>{
         for(i in el){
             const divAlternativas = document.createElement("div")
             divAlternativas.setAttribute("class","alternativas")
             divAlternativas.innerHTML = el[i]
-            conteudo.appendChild(divAlternativas)
-        }
-    })
 
-    //verifica qual alternativa foi clicada e muda o estilo
-    const alternativas = [...document.querySelectorAll(".alternativas")]
-    alternativas.map((e)=>{
-        e.addEventListener("click",()=>{
-            e.classList.toggle("alternativasSelecionada")
-        })
+            divAlternativas.addEventListener("click",()=>{
+                tirarSelecao()
+                divAlternativas.classList.toggle("alternativasSelecionada")
+            })
+
+            conteudo.appendChild(divAlternativas)
+
+        }
     })
 }
 
 //muda as perguntas do jogo
 btn_proxima.addEventListener("click",()=>{
     criarConteudo()
+})
+
+btn_verificar.addEventListener("click",()=>{
+    console.log(resposta.next())
 })

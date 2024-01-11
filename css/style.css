@@ -130,7 +130,7 @@ h1{
     align-items: center;
 }
 
-.btn_proxima{
+.btn_proxima,.btn_verificar{
     margin-left: 100px;
     padding: 10px;
     border-radius: 10px;
