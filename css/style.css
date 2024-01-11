@@ -88,6 +88,15 @@ h1{
     box-shadow: 2px 2px 20px black;
 }
 
+/* .conteudo{
+    max-width: 600px;
+    margin: 15px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 20px black;
+} */
+
 .pergunta,.alternativas{
     margin: 30px;
 }
@@ -101,13 +110,18 @@ h1{
     border: 1px solid black;
     padding: 5px 20px;
     border-radius: 10px;
-    transition: 0.5s;
+    transition: 0.3s;
     cursor: pointer;
 }
 
 .alternativas:hover{
     scale: 1.05;
-    transition: 0.5s;
+    transition: 0.3s;
+}
+
+.alternativasSelecionada{
+    background-color: red;
+    box-shadow: 0px 0px 30px red;
 }
 
 .acoes{
