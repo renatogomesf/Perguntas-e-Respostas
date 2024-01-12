@@ -2,12 +2,15 @@ const telaInicial = document.querySelector(".telaInicial")
 const jogo = document.querySelector(".jogo")
 const conteudo = document.querySelector(".conteudo")
 
+const acoes = document.querySelector(".acoes")
 const pontos = document.querySelector(".pontos")
+const pontoFinal = document.querySelector(".pontoFinal")
 const resultado = document.querySelector(".resultado")
+const resultadoFinal = document.querySelector(".resultadoFinal")
 
 const btn_começar = document.querySelector(".btn_começar")
 const btn_proxima = document.querySelector(".btn_proxima")
-const btn_verificar = document.querySelector(".btn_verificar")
+const btn_reiniciar = document.querySelector(".btn_reiniciar")
 
 const questoes = [
     {
@@ -39,6 +42,36 @@ const questoes = [
             {item: "200", correto: true }
         ]
     },
+
+    {
+        pergunta: "4) quanto é 1000+1000?",
+        alternativas: [
+            {item: "1000", correto: false },
+            {item: "4000", correto: false },
+            {item: "3000", correto: false },
+            {item: "2000", correto: true }
+        ]
+    },
+
+    {
+        pergunta: "5) quanto é 10000+10000?",
+        alternativas: [
+            {item: "10000", correto: false },
+            {item: "40000", correto: false },
+            {item: "30000", correto: false },
+            {item: "20000", correto: true }
+        ]
+    },
+
+    {
+        pergunta: "6) quanto é 100000+100000?",
+        alternativas: [
+            {item: "10000", correto: false },
+            {item: "400000", correto: false },
+            {item: "30000", correto: false },
+            {item: "200000", correto: true }
+        ]
+    },
 ]
 
 function tirarSelecao(){
@@ -67,54 +100,82 @@ let indice = 0
 
 let placar = 0
 
+let contador = 1
+
 function criarConteudo(){
     resultado.innerHTML = "Resultado"
     conteudo.innerHTML = ""
-    const divPergunta = document.createElement("div")
-    divPergunta.setAttribute("class","pergunta")
-    divPergunta.innerHTML = questoes[indice].pergunta
-    conteudo.appendChild(divPergunta)
     
-    const criarAlternativas = questoes[indice]
-    
-    criarAlternativas.alternativas.map((el)=>{
-        const divAlternativas= document.createElement("button")
-        divAlternativas.setAttribute("class","alternativas")
-        divAlternativas.innerHTML = el.item
-        conteudo.appendChild(divAlternativas)
+    if(questoes.length >= contador){
+
+        const divPergunta = document.createElement("div")
+        divPergunta.setAttribute("class","pergunta")
+        divPergunta.innerHTML = questoes[indice].pergunta
+        conteudo.appendChild(divPergunta)
+
+        const criarAlternativas = questoes[indice]
         
-        divAlternativas.addEventListener("click",()=>{
-            tirarSelecao()
-            divAlternativas.classList.toggle("alternativasSelecionada")
+        criarAlternativas.alternativas.map((el)=>{
+            const divAlternativas= document.createElement("button")
+            divAlternativas.setAttribute("class","alternativas")
+            divAlternativas.innerHTML = el.item
+            conteudo.appendChild(divAlternativas)
             
-            if(el.correto == true){
-                placar++
-                divAlternativas.classList.add("alternativaCorreta")
-                resultado.innerHTML = "ACERTOU!!"
-                resultado.classList.add("resultadoCorreto")
-                pontos.innerHTML = `Pontos: ${placar}`
+            divAlternativas.addEventListener("click",()=>{
+                tirarSelecao()
+                divAlternativas.classList.toggle("alternativasSelecionada")
+                
+                if(el.correto == true){
+                    placar++
+                    divAlternativas.classList.add("alternativaCorreta")
+                    resultado.innerHTML = "ACERTOU!!"
+                    resultado.classList.add("resultadoCorreto")
+                    pontos.innerHTML = `Pontos: ${placar}`
+    
+                    pontoFinal.innerHTML = `Você fez: ${placar}`
 
-                desabilitarOpçoes()
-
-            }else{
-                divAlternativas.classList.add("alternativaErrada")
-                resultado.innerHTML = "ERROU!!"
-                resultado.classList.add("resultadoErrado")
-
-                desabilitarOpçoes()
-            }
+                    desabilitarOpçoes()
+    
+                }else{
+                    divAlternativas.classList.add("alternativaErrada")
+                    resultado.innerHTML = "ERROU!!"
+                    resultado.classList.add("resultadoErrado")
+    
+                    desabilitarOpçoes()
+                }
+            })
         })
-    })
-    indice++
+
+        indice++
+
+        contador++
+
+    }else{
+        acoes.style.display = "none"
+        resultadoFinal.style.display = "flex"
+    }
 }
 
 btn_começar.addEventListener("click",()=>{
     telaInicial.style.display = "none"
     jogo.style.display = "flex"
+    acoes.style.display = "flex"
     criarConteudo()
 })
 
 btn_proxima.addEventListener("click",()=>{
     criarConteudo()
     tirarSelecao()
+})
+
+btn_reiniciar.addEventListener("click",()=>{
+    indice = 0
+
+    placar = 0
+
+    contador = 1
+
+    telaInicial.style.display = "flex"
+    jogo.style.display = "none"
+    resultadoFinal.style.display = "none"
 })
