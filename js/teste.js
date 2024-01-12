@@ -2,15 +2,12 @@ const telaInicial = document.querySelector(".telaInicial")
 const jogo = document.querySelector(".jogo")
 const conteudo = document.querySelector(".conteudo")
 
+const pontos = document.querySelector(".pontos")
+const resultado = document.querySelector(".resultado")
+
 const btn_começar = document.querySelector(".btn_começar")
 const btn_proxima = document.querySelector(".btn_proxima")
 const btn_verificar = document.querySelector(".btn_verificar")
-
-btn_começar.addEventListener("click",()=>{
-    telaInicial.style.display = "none"
-    jogo.style.display = "block"
-    criarConteudo()
-})
 
 const questoes = [
     {
@@ -22,7 +19,7 @@ const questoes = [
             {item: "4", correto: false }
         ]
     },
-
+    
     {
         pergunta: "2) quanto é 10+10?",
         alternativas: [
@@ -32,7 +29,7 @@ const questoes = [
             {item: "40", correto: false }
         ]
     },
-
+    
     {
         pergunta: "3) quanto é 100+100?",
         alternativas: [
@@ -44,28 +41,80 @@ const questoes = [
     },
 ]
 
-let contador = 0
-
-function criarConteudo(){
-    const divPergunta = document.createElement("div")
-    divPergunta.setAttribute("class","pergunta")
-    divPergunta.innerHTML = questoes[contador].pergunta
-    conteudo.appendChild(divPergunta)
-
-    questoes.map((el)=>{
-        const divAlternativas= document.createElement("div")
-        divAlternativas.setAttribute("class","alternativas")
-        divAlternativas.innerHTML = el.alternativas[contador].item
-        conteudo.appendChild(divAlternativas)
-
-        console.log(el.alternativas[contador])
+function tirarSelecao(){
+    const alternativas = [...document.querySelectorAll(".alternativasSelecionada")]
+    alternativas.map((el)=>{
+        el.classList.remove("alternativasSelecionada")
+        el.classList.remove("alternativaCorreta")
+        el.classList.remove("alternativaErrada")
     })
-    
-    contador++
-    console.log(contador)
+
+    resultado.classList.remove("resultadoCorreto")
+    resultado.classList.remove("resultadoErrado")
 }
 
-btn_proxima.addEventListener("click",()=>{
+function desabilitarOpçoes(){
+    const alternativas = [...document.querySelectorAll(".alternativas")]
+    alternativas.map((el)=>{
+        console.log(el)
+        if(el.classList != "alternativasSelecionada"){
+            el.setAttribute("disabled","disabled")
+        }
+    })
+}
+
+let indice = 0
+
+let placar = 0
+
+function criarConteudo(){
+    resultado.innerHTML = "Resultado"
     conteudo.innerHTML = ""
+    const divPergunta = document.createElement("div")
+    divPergunta.setAttribute("class","pergunta")
+    divPergunta.innerHTML = questoes[indice].pergunta
+    conteudo.appendChild(divPergunta)
+    
+    const criarAlternativas = questoes[indice]
+    
+    criarAlternativas.alternativas.map((el)=>{
+        const divAlternativas= document.createElement("button")
+        divAlternativas.setAttribute("class","alternativas")
+        divAlternativas.innerHTML = el.item
+        conteudo.appendChild(divAlternativas)
+        
+        divAlternativas.addEventListener("click",()=>{
+            tirarSelecao()
+            divAlternativas.classList.toggle("alternativasSelecionada")
+            
+            if(el.correto == true){
+                placar++
+                divAlternativas.classList.add("alternativaCorreta")
+                resultado.innerHTML = "ACERTOU!!"
+                resultado.classList.add("resultadoCorreto")
+                pontos.innerHTML = `Pontos: ${placar}`
+
+                desabilitarOpçoes()
+
+            }else{
+                divAlternativas.classList.add("alternativaErrada")
+                resultado.innerHTML = "ERROU!!"
+                resultado.classList.add("resultadoErrado")
+
+                desabilitarOpçoes()
+            }
+        })
+    })
+    indice++
+}
+
+btn_começar.addEventListener("click",()=>{
+    telaInicial.style.display = "none"
+    jogo.style.display = "flex"
     criarConteudo()
+})
+
+btn_proxima.addEventListener("click",()=>{
+    criarConteudo()
+    tirarSelecao()
 })
