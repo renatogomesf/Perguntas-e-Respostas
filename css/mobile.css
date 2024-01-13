@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+.acoes{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pontos{
+    margin-bottom: 10px;
+}
+
+.resultado{
+    margin: 10px;
+}
+
+.btn_proxima{
+    margin-top: 10px;
+}

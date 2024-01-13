@@ -7,6 +7,7 @@ const acoes = document.querySelector(".acoes")
 const pontos = document.querySelector(".pontos")
 const pontoFinal = document.querySelector(".pontoFinal")
 const resultado = document.querySelector(".resultado")
+const parabens = document.querySelector(".parabens")
 const resultadoFinal = document.querySelector(".resultadoFinal")
 
 const btn_começar = document.querySelector(".btn_começar")
@@ -16,62 +17,52 @@ const btn_reiniciar = document.querySelector(".btn_reiniciar")
 //ARRAY QUE CONTEM AS QUESTÕES COM ALTERNATIVAS.
 const questoes = [
     {
-        pergunta: "1) quanto é 1+1?",
+        pergunta: "1) Quantas cores tem o arco-íris?",
         alternativas: [
-            {item: "1", correto: false },
-            {item: "2", correto: true },
-            {item: "3", correto: false },
-            {item: "4", correto: false }
+            {item: "Sete", correto: true },
+            {item: "Oito", correto: false },
+            {item: "Nove", correto: false },
+            {item: "Dez", correto: false }
         ]
     },
     
     {
-        pergunta: "2) quanto é 10+10?",
+        pergunta: "2) Qual é a letra que antecede a letra O no alfabeto brasileiro?",
         alternativas: [
-            {item: "10", correto: false },
-            {item: "30", correto: false },
-            {item: "20", correto: true },
-            {item: "40", correto: false }
+            {item: "M", correto: false },
+            {item: "N", correto: true },
+            {item: "P", correto: false },
+            {item: "Q", correto: false }
         ]
     },
     
     {
-        pergunta: "3) quanto é 100+100?",
+        pergunta: "3) De qual banda de rock que o cantor Freddie Mercury foi vocalista?",
         alternativas: [
-            {item: "100", correto: false },
-            {item: "400", correto: false },
-            {item: "300", correto: false },
-            {item: "200", correto: true }
+            {item: "Queen", correto: true },
+            {item: "The Beatles", correto: false },
+            {item: "Rolling Stones", correto: false },
+            {item: "AC/DC", correto: false }
         ]
     },
 
     {
-        pergunta: "4) quanto é 1000+1000?",
+        pergunta: "4) Qual é o único país onde o animal coala vive?",
         alternativas: [
-            {item: "1000", correto: false },
-            {item: "4000", correto: false },
-            {item: "3000", correto: false },
-            {item: "2000", correto: true }
+            {item: "Brasil", correto: false },
+            {item: "Estados Unidos", correto: false },
+            {item: "Canadá", correto: false },
+            {item: "Austrália", correto: true }
         ]
     },
 
     {
-        pergunta: "5) quanto é 10000+10000?",
+        pergunta: "5) Qual é a floresta tropical mais extensa do mundo?",
         alternativas: [
-            {item: "10000", correto: false },
-            {item: "40000", correto: false },
-            {item: "30000", correto: false },
-            {item: "20000", correto: true }
-        ]
-    },
-
-    {
-        pergunta: "6) quanto é 100000+100000?",
-        alternativas: [
-            {item: "10000", correto: false },
-            {item: "400000", correto: false },
-            {item: "30000", correto: false },
-            {item: "200000", correto: true }
+            {item: "Floresta Amazônica", correto: true },
+            {item: "Floresta Negra", correto: false },
+            {item: "Floresta de Sherwood", correto: false },
+            {item: "Floresta do Congo", correto: false }
         ]
     },
 ]
@@ -110,7 +101,8 @@ let contador = 1
 
 //FUNÇÃO QUE CRIA PERGUNTAS E ALTERNATIVAS.
 function criarConteudo(){
-    resultado.innerHTML = "Resultado"
+    resultado.innerHTML = ""
+    resultado.style.display = "none"
     conteudo.innerHTML = ""
     
     //VERIFICAR SE AINDA HÁ QUESTÕES NO ARRAY.
@@ -136,6 +128,8 @@ function criarConteudo(){
                 tirarSelecao()
 
                 divAlternativas.classList.toggle("alternativasSelecionada")
+
+                resultado.style.display = "block"
                 
                 if(el.correto == true){
                     placar++
@@ -167,6 +161,7 @@ function criarConteudo(){
         resultadoFinal.style.display = "flex"
 
         if(placar == 0){
+            parabens.style.display = "none"
             pontoFinal.innerHTML = `Você não fez nenhum ponto :(`
         }else if(placar == 1){
             pontoFinal.innerHTML = `Você fez ${placar} ponto!`
@@ -202,4 +197,5 @@ btn_reiniciar.addEventListener("click",()=>{
     telaInicial.style.display = "flex"
     jogo.style.display = "none"
     resultadoFinal.style.display = "none"
+    parabens.style.display = "block"
 })
