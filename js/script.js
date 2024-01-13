@@ -1,3 +1,4 @@
+//CONECÇÕES DO HTML COM O JS.
 const telaInicial = document.querySelector(".telaInicial")
 const jogo = document.querySelector(".jogo")
 const conteudo = document.querySelector(".conteudo")
@@ -12,6 +13,7 @@ const btn_começar = document.querySelector(".btn_começar")
 const btn_proxima = document.querySelector(".btn_proxima")
 const btn_reiniciar = document.querySelector(".btn_reiniciar")
 
+//ARRAY QUE CONTEM AS QUESTÕES COM ALTERNATIVAS.
 const questoes = [
     {
         pergunta: "1) quanto é 1+1?",
@@ -74,6 +76,7 @@ const questoes = [
     },
 ]
 
+//FUNÇÃO PARA RETIRAR A ESTILIZAÇÃO (CORES) DE UMA ALTERNATIVA CASO CLIQUE EM OUTRA.
 function tirarSelecao(){
     const alternativas = [...document.querySelectorAll(".alternativasSelecionada")]
     alternativas.map((el)=>{
@@ -86,33 +89,40 @@ function tirarSelecao(){
     resultado.classList.remove("resultadoErrado")
 }
 
+//FUNÇÃO PARA DESABILITAR TODAS AS ALTERNATIVAS APÓS CLICAR EM UMA.
 function desabilitarOpçoes(){
     const alternativas = [...document.querySelectorAll(".alternativas")]
     alternativas.map((el)=>{
-        console.log(el)
         if(el.classList != "alternativasSelecionada"){
             el.setAttribute("disabled","disabled")
         }
     })
 }
 
+//VARIÁVEL PARA SELECIONAR UM ELEMENTO DIFERENTE NO ARRAY QUESTÕES ATRAVÉS DA KEY.
 let indice = 0
 
+//VARIÁVEL PARA CONTABILIZAR O PLACAR.
 let placar = 0
 
+//VARIÁVEL PARA PODER SABER QUANDO ACABAM AS QUESTÕES DO ARRAY.
 let contador = 1
 
+//FUNÇÃO QUE CRIA PERGUNTAS E ALTERNATIVAS.
 function criarConteudo(){
     resultado.innerHTML = "Resultado"
     conteudo.innerHTML = ""
     
+    //VERIFICAR SE AINDA HÁ QUESTÕES NO ARRAY.
     if(questoes.length >= contador){
 
+        //CRIA AS PERGUNTAS.
         const divPergunta = document.createElement("div")
         divPergunta.setAttribute("class","pergunta")
         divPergunta.innerHTML = questoes[indice].pergunta
         conteudo.appendChild(divPergunta)
 
+        //CRIA ALTERNATIVAS.
         const criarAlternativas = questoes[indice]
         
         criarAlternativas.alternativas.map((el)=>{
@@ -121,8 +131,10 @@ function criarConteudo(){
             divAlternativas.innerHTML = el.item
             conteudo.appendChild(divAlternativas)
             
+            //VERIFICA SE A ALTERNATIVA ESCOLHIDA ESTÁ CORRETA OU NÃO.
             divAlternativas.addEventListener("click",()=>{
                 tirarSelecao()
+
                 divAlternativas.classList.toggle("alternativasSelecionada")
                 
                 if(el.correto == true){
@@ -131,8 +143,6 @@ function criarConteudo(){
                     resultado.innerHTML = "ACERTOU!!"
                     resultado.classList.add("resultadoCorreto")
                     pontos.innerHTML = `Pontos: ${placar}`
-    
-                    pontoFinal.innerHTML = `Você fez: ${placar}`
 
                     desabilitarOpçoes()
     
@@ -146,28 +156,42 @@ function criarConteudo(){
             })
         })
 
+        //INCREMENTO DAS VARIÁVEIS.
         indice++
 
         contador++
 
     }else{
+        //CASO NÃO TENHA MAIS QUESTÕES, MOSTRA TELA DE RESULTADO FINAL.
         acoes.style.display = "none"
         resultadoFinal.style.display = "flex"
+
+        if(placar == 0){
+            pontoFinal.innerHTML = `Você não fez nenhum ponto :(`
+        }else if(placar == 1){
+            pontoFinal.innerHTML = `Você fez ${placar} ponto!`
+        }else{
+            pontoFinal.innerHTML = `Você fez ${placar} pontos!`
+        }
     }
 }
 
+//BOTÃO PARA INICIAR O JOGO E CRIRAR PRIMEIRA QUESTÃO. 
 btn_começar.addEventListener("click",()=>{
     telaInicial.style.display = "none"
     jogo.style.display = "flex"
     acoes.style.display = "flex"
+    pontos.innerHTML = `Pontos: 0`
     criarConteudo()
 })
 
+//BOTÃO PARA MUDAR DE QUESTÃO.
 btn_proxima.addEventListener("click",()=>{
     criarConteudo()
     tirarSelecao()
 })
 
+//BOTÃO PARA REINICAR O JOGO.
 btn_reiniciar.addEventListener("click",()=>{
     indice = 0
 
