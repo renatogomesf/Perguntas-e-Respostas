@@ -101,8 +101,7 @@ let contador = 1
 
 //FUNÇÃO QUE CRIA PERGUNTAS E ALTERNATIVAS.
 function criarConteudo(){
-    resultado.innerHTML = ""
-    resultado.style.display = "none"
+    resultado.innerHTML = "Resposta..."
     conteudo.innerHTML = ""
     
     //VERIFICAR SE AINDA HÁ QUESTÕES NO ARRAY.
@@ -134,7 +133,7 @@ function criarConteudo(){
                 if(el.correto == true){
                     placar++
                     divAlternativas.classList.add("alternativaCorreta")
-                    resultado.innerHTML = "ACERTOU!!"
+                    resultado.innerHTML = "CORRETA!!"
                     resultado.classList.add("resultadoCorreto")
                     pontos.innerHTML = `Pontos: ${placar}`
 
@@ -142,7 +141,7 @@ function criarConteudo(){
     
                 }else{
                     divAlternativas.classList.add("alternativaErrada")
-                    resultado.innerHTML = "ERROU!!"
+                    resultado.innerHTML = "ERRADA!!"
                     resultado.classList.add("resultadoErrado")
     
                     desabilitarOpçoes()

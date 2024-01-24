@@ -144,12 +144,21 @@ p{
     background-color: red;
 }
 
+/* .funcoes{
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+} */
+
 .acoes{
     width: 90%;
     max-width: 600px;
     margin: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -161,7 +170,6 @@ p{
 }
 
 .resultado{
-    display: none;
     padding: 10px;
     border-radius: 10px;
     border: 1px solid black;
