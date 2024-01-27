@@ -2,13 +2,11 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap');
 
-/* RESETE GLOBAL */
 *{
     margin: 0px;
     padding: 0px;
 }
 
-/* RAIZ COM VARIÁVIS */
 :root{
     --cor1: #042940;
     --cor5: #D6D58E;
@@ -27,6 +25,8 @@ body{
     background-color: var(--cor1);
 }
 
+
+/*----- MAIN -----*/
 main{
     width: 100%;
     height: 100%;
@@ -143,15 +143,6 @@ p{
 .alternativaErrada{
     background-color: red;
 }
-
-/* .funcoes{
-    width: 100%;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-} */
 
 .acoes{
     width: 90%;

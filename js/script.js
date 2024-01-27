@@ -1,4 +1,3 @@
-//CONECÇÕES DO HTML COM O JS.
 const telaInicial = document.querySelector(".telaInicial")
 const jogo = document.querySelector(".jogo")
 const conteudo = document.querySelector(".conteudo")
