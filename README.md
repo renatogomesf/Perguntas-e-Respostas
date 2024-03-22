@@ -1,5 +1,5 @@
 # Perguntas e Respostas
-[![Static Badge](https://img.shields.io/badge/Licen%C3%A7a-MIT-green)](https://github.com/renatogomesf/Portifolio/blob/main/LICENSE)
+[![Static Badge](https://img.shields.io/badge/Licen%C3%A7a-MIT-green)](https://github.com/renatogomesf/Perguntas-e-Respostas/blob/main/LICENSE)
 
 ## Sobre o projeto
 
